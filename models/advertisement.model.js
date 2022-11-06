@@ -6,13 +6,16 @@ const advertisementModel = mongoose.Schema(
         title: String,
         description: String,
         condition: String,
+        imageURL: [String],
         price: Number,
         sold: Boolean,
+        enable: Boolean,
         deliveryMethod: String,
         creationDate: Date,
         publishedDate: Date,
         expiryDate: Date,
-        userName: String
+        userName: String,
+        questionAnswer: [ {question: String, answer: String} ]
     },
     {
         collection: "advertisement"
