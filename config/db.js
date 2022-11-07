@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const uri = "mongodb+srv://dbuser:5YZ5xseRsOMwM7ZJ@cluster018.xkwadxk.mongodb.net/?retryWrites=true&w=majority"
+const uri = "mongodb+srv://eric:eric@cluster0.dosf3fq.mongodb.net/products?retryWrites=true&w=majority"
 
 module.exports = function() {
 
