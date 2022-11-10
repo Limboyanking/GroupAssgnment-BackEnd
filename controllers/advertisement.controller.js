@@ -15,19 +15,27 @@ function getErrorMessage(err) {
 };
 
 // List advertisement list
-exports.advertisementList = function(req, res, next) {
-    Advertisement.find((err, advertisementList) => {
-        if (err) {
-            console.error(err);
-            // To be completed
-        } else {
-            res.render('advertisement/list', {
-                title: 'Advertisement List',
-                AdvertisementList: advertisementList
-            })
-        }
-        }).sort( {"category": 1});
+module.exports.advertisementList = async function(req, res, next) {  
+
+    try {
+        let advertisementList = await Advertisement.find().populate({
+            path: 'category',
+            select: 'category title'
+        });
+
+        res.status(200).json(advertisementList);
+        
+    } catch (error) {
+        return res.status(400).json(
+            { 
+                success: false, 
+                message: getErrorMessage(error)
+            }
+        );
+    }
+
 }
+
 
 // Add advertisement
 module.exports.displayAddPage = (req, res, next) => {
@@ -124,13 +132,35 @@ module.exports.processEditPage = (req, res, next) => {
 
 // Delete advertisement
 module.exports.performDelete = (req, res, next) => {
-    let id = req.params.id;
-    Advertisement.remove({_id: id}, (err) => {
-        if(err) {
-            console.log(err);
-            res.end(err);
-        } else {
-            res.redirect('/Advertisement');
-        }
-    });
+
+    try {
+        let id = req.params.id;
+
+        Advertisement.deleteOne({_id: id}, (err) => {
+            if(err) {
+                console.log(err);
+                return res.status(400).json(
+                    { 
+                        success: false, 
+                        message: getErrorMessage(err)
+                    }
+                );
+            } else {
+                res.status(200).json(
+                    {
+                        success: true,
+                        message: 'Item deleted successfully.'
+                    }
+                )
+            }
+        });
+    } catch (error) {
+        return res.status(400).json(
+            { 
+                success: false, 
+                message: getErrorMessage(error)
+            }
+        );
+    }
+
 }

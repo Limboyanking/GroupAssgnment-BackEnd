@@ -5,6 +5,10 @@ const advertisementController = require('../controllers/advertisement.controller
 // List advertisements
 router.get('/', advertisementController.advertisementList);
 
+// Delete an advertisement
+// router.get('/delete/:id', advertisementController.performDelete);
+router.delete('/delete/:id', advertisementController.performDelete);
+
 // Add advertisement
 router.get('/add', advertisementController.displayAddPage);
 router.post('/add', advertisementController.processAddPage);
@@ -12,8 +16,5 @@ router.post('/add', advertisementController.processAddPage);
 // Edit an advertisement
 router.get('/edit/:id', advertisementController.displayEditPage);
 router.post('/edit/:id', advertisementController.processEditPage);
-
-// Delete an advertisement
-router.get('/delete/:id', advertisementController.performDelete);
 
 module.exports = router;
