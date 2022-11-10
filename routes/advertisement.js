@@ -10,11 +10,12 @@ router.get('/', advertisementController.advertisementList);
 router.delete('/delete/:id', advertisementController.performDelete);
 
 // Add advertisement
-router.get('/add', advertisementController.displayAddPage);
-router.post('/add', advertisementController.processAddPage);
+// router.get('/add', advertisementController.displayAddPage);
+router.post('/add', advertisementController.processAdd);
 
 // Edit an advertisement
-router.get('/edit/:id', advertisementController.displayEditPage);
-router.post('/edit/:id', advertisementController.processEditPage);
+// router.get('/edit/:id', advertisementController.displayEditPage);
+router.put('/edit/:id', advertisementController.processEdit);
+
 
 module.exports = router;
