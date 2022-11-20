@@ -23,3 +23,4 @@ const advertisementModel = mongoose.Schema(
 );
 
 module.exports = mongoose.model('advertisementList', advertisementModel);
+//
