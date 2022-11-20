@@ -7,8 +7,9 @@ var dbConfig = require('./config/db');
 var app = require('./config/app');
 var debug = require('debug')('localhost:3000');
 var http = require('http');
-var configurePassport = require('./config/passport');
- 
+// var configurePassport = require('./config/passport');
+var configurePassport = require('./config/local');
+
 /**
  * Get port from environment and store in Express.
 */
