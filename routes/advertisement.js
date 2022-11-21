@@ -6,7 +6,6 @@ const advertisementController = require('../controllers/advertisement.controller
 router.get('/', advertisementController.advertisementList);
 
 // Delete an advertisement
-// router.get('/delete/:id', advertisementController.performDelete);
 router.delete('/delete/:id', advertisementController.performDelete);
 
 // Add advertisement
