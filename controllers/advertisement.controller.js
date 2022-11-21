@@ -42,6 +42,7 @@ module.exports.processAdd = (req, res, next) => {
     try {
 
         /* By default, the sold and enable remains false when created*/
+        var questionAnswerArray = []
         let newAdvertisement = Advertisement({
             _id: req.body.id,
             category: req.body.category,
@@ -57,7 +58,10 @@ module.exports.processAdd = (req, res, next) => {
             creationDate: Date.now(),
             publishedDate: req.body.publishedDate,
             expiryDate: req.body.expiryDate,
-            userName: req.body.userName
+            userName: req.body.userName,
+            questionAnswer: req.body.questionAnswer,
+             // If it does not have an owner it assumes the ownership otherwise it assigns it.
+             owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner
         });
 
         Advertisement.create(newAdvertisement, (err, adv) =>{
@@ -95,6 +99,8 @@ module.exports.processEdit = (req,res,next) => {
     try {
         let id = req.params.id;
         
+        // console.log(req.body);
+
         /* By default, the sold and enable remains false when created*/
         let updatedAdvertisement = Advertisement({
             _id: id,
@@ -109,7 +115,10 @@ module.exports.processEdit = (req,res,next) => {
             // creationDate: Date.now(),
             publishedDate: req.body.publishedDate,
             expiryDate: req.body.expiryDate,
-            userName: req.body.userName
+            userName: req.body.userName,
+            questionAnswer: req.body.questionAnswer,
+            // If it does not have an owner it assumes the ownership otherwise it assigns it.
+            owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner
         });
     
         Advertisement.updateOne({_id: id}, updatedAdvertisement, (err) => {

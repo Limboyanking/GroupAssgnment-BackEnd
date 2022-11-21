@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
+
 const advertisementModel = mongoose.Schema(
     {
         category: String,
         title: String,
         description: String,
         condition: String,
-        imageURL: [String],
+        imageURL: [],
         price: Number,
         sold: Boolean,
         enable: Boolean,
@@ -15,7 +16,17 @@ const advertisementModel = mongoose.Schema(
         publishedDate: Date,
         expiryDate: Date,
         userName: String,
-        questionAnswer: [ {question: String, answer: String} ]
+        questionAnswer: [
+            {
+                question: String,
+                answer: String
+            }
+        ],
+        // Adds relationship with User
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
     },
     {
         collection: "advertisement"
