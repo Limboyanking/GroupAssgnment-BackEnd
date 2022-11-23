@@ -10,6 +10,8 @@ const path = require('path');
 // const cookieParser = require('cookie-parser');
 // const session = require('express-session');
 // const flash = require('connect-flash');
+// let bodyParser = require('body-parser');
+// let methodOverride = require('method-override');
 
 const indexRouter = require('../routes/index');
 const usersRouter = require('../routes/users'); // Defining routes for users login
