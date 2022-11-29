@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Advertisement = require('../models/advertisement.model');
+const datetool = require('../tools/date.tool');
 
 function getErrorMessage(err) {    
     if (err.errors) {
@@ -57,11 +58,12 @@ module.exports.processAdd = (req, res, next) => {
             deliveryMethod: req.body.deliveryMethod,
             creationDate: Date.now(),
             publishedDate: req.body.publishedDate,
-            expiryDate: req.body.expiryDate,
+            // By default, set 10 days after current date
+            expiryDate: (req.body.expiryDate == null) ? datetool.addDays(Date.now(),10) : req.body.expiryDate,
             userName: req.body.userName,
             questionAnswer: req.body.questionAnswer,
              // If it does not have an owner it assumes the ownership otherwise it assigns it.
-             owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner
+             owner: (req.body.owner == null || req.body.owner == "") ? req.payload.id : req.body.owner
         });
 
         Advertisement.create(newAdvertisement, (err, adv) =>{
