@@ -4,17 +4,25 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const JWTstrategy = require('passport-jwt').Strategy;
 const User = require('../models/user.model');
 
-const config = require('./config');
+const envConfig = require('./env');
 
 module.exports = function() {
+
+    var jwtOptions = {};
+    jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+    jwtOptions.secretOrKey = envConfig.SECRETKEY;
+
+    console.log("local.js: " + envConfig.ATLASDB);
 
     passport.use(
         'tokencheck',
         new JWTstrategy(
-            {
-                secretOrKey: config.SECRETKEY,
-                jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-            },
+            // {
+            //     secretOrKey: envConfig.SECRETKEY,
+            //     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+            // },
+            jwtOptions
+            ,
             async (token, done) => {
                 try {
                     console.log(token);

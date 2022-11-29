@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const config = require('./config');
+const envConfig = require('./env');
 
 // const uri = "mongodb+srv://<>:<>@cluster0.htedkjhiu.mongodb.net/hnuogyu?retryWrites=true&w=majority"
-const uri = "mongodb+srv://" + config.ATLASDB_USERNAME + ":" + config.ATLASDB_PASSWORD + config.ATLASDB;
+const uri = "mongodb+srv://" + envConfig.ATLASDB_USERNAME + ":" + envConfig.ATLASDB_PASSWORD + envConfig.ATLASDB;
 
 module.exports = function() {
     console.log(uri);

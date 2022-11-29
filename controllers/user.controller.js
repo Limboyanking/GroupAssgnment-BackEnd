@@ -1,11 +1,10 @@
 let User = require('../models/user.model');
 let passport = require('passport');
 let jwt = require('jsonwebtoken');
-let config = require('../config/config');
+let envConfig = require('../config/env');
 
 //import passport config after initializing passport.
 require('../config/local')(passport);
-
 
 function getErrorMessage(err) {
   console.log(err);
@@ -93,7 +92,7 @@ module.exports.signin = function(req, res, next){
               { 
                 payload: payload
               }, 
-              config.SECRETKEY, 
+              envConfig.SECRETKEY, 
               { 
                 algorithm: 'HS512', 
                 expiresIn: "20min"

@@ -1,5 +1,5 @@
 // import and config dotenv
-require('dotenv').config
+require('dotenv').config();
 
 // get from spotscale.env(ignored by git)
 module.exports = {
