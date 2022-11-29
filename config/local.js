@@ -12,7 +12,7 @@ module.exports = function() {
     jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
     jwtOptions.secretOrKey = envConfig.SECRETKEY;
 
-    console.log("local.js: " + envConfig.ATLASDB);
+    // console.log("local.js: " + envConfig.ATLASDB);
 
     passport.use(
         'tokencheck',
