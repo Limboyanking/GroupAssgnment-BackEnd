@@ -60,7 +60,7 @@ module.exports.processAdd = (req, res, next) => {
             creationDate: Date.now(),
             publishedDate: req.body.publishedDate,
             // By default, set 10 days after current date
-            expiryDate: (req.body.expiryDate == null) ? datetool.addDays(Date.now(),10) : req.body.expiryDate,
+            expiryDate: (req.body.expiryDate == null || req.body.expiryDate == "") ? datetool.addDays(Date.now(),10) : req.body.expiryDate,
             userName: req.body.userName,
             questionAnswer: req.body.questionAnswer,
              // If it does not have an owner it assumes the ownership otherwise it assigns it.
