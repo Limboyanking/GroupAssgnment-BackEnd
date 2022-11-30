@@ -7,7 +7,11 @@ const advertisementModel = mongoose.Schema(
         title: String,
         description: String,
         condition: String,
-        imageURL: [],
+        imageURL: [
+            {
+                url: String
+            }
+        ],
         price: Number,
         sold: Boolean,
         enable: Boolean,
