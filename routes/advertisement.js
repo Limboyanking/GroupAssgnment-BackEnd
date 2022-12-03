@@ -9,7 +9,7 @@ router.get('/', advertisementController.advertisementList);
 
 // Edit an advertisement
 // router.get('/edit/:id', authController.requireAuth, authController.isAllowed, advertisementController.displayEditPage);
-router.put('/edit/:id', authController.requireAuth, authController.isAllowed, advertisementController.processEdit);
+router.put('/edit/:id', authController.requireAuth, authController.isAllowed, advertisementController.processEdit); 
 
 // Delete an advertisement
 router.delete('/delete/:id', authController.requireAuth, authController.isAllowed, advertisementController.performDelete);
@@ -18,6 +18,7 @@ router.delete('/delete/:id', authController.requireAuth, authController.isAllowe
 // Add advertisement
 // router.get('/add', authController.requireAuth, advertisementController.displayAddPage);
 router.post('/add', authController.requireAuth, advertisementController.processAdd);
+
 
 
 module.exports = router;

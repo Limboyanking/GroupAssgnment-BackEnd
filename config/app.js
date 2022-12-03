@@ -16,6 +16,7 @@ const path = require('path');
 const indexRouter = require('../routes/index');
 const usersRouter = require('../routes/users'); // Defining routes for users login
 const advertisementRouter = require('../routes/advertisement'); // Defining routers for advertisement list
+const qaRouter = require('../routes/qa'); // Defining routers for questionAndAnswer
 const errorHandler = require('./error-handler');
 
 const app = express();
@@ -53,6 +54,7 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/advertisement', advertisementRouter);
+app.use('/qa',qaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

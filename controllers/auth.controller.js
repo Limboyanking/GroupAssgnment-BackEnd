@@ -50,7 +50,7 @@ exports.isAllowed = async function (req, res, next){
 
         // If there is no item found.
         if(advertisementItem == null){
-            throw new Error('Item not found.') // Express will catch this on its own.
+            throw new Error('Advertisement not found.') // Express will catch this on its own.
         }
         else if(advertisementItem.owner != null){ // If the item found has a owner.
 
