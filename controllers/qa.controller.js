@@ -164,7 +164,7 @@ module.exports.processDeleteQA = async (req, res, next) => {
     try {
         let advertisementID = req.params.id;
         let qaID = req.params.qaid;
-        let newQustionAnserArray = [];
+        let newQustionAnswerArray = [];
 
         // Get the current Ad
         var curAdvertisement = await advertisementModel.findById(advertisementID);
@@ -174,14 +174,24 @@ module.exports.processDeleteQA = async (req, res, next) => {
             throw new Error('questionAnswer Array not found.'); 
         }else{
             let curQuestionAnswerArray = curAdvertisement.questionAnswer;
+            let isFound = false;
+
             // Delete/Filter-out the QA item for the qaid   
-            newQustionAnserArray = curQuestionAnswerArray.filter(e => e._id != qaID);
+            newQustionAnswerArray = curQuestionAnswerArray.filter(e => {
+                if(e._id == qaID){
+                    isFound = true;
+                }
+                e._id != qaID;
+            });
+            
+            if(isFound == false){
+                throw new Error('Q&A item not found.'); 
+            }
         }
-        
         
         // Locate and update the questionAnswer field by the advertisementID 
         advertisementModel.findByIdAndUpdate(advertisementID, 
-            {questionAnswer: newQustionAnserArray},
+            {questionAnswer: newQustionAnswerArray},
             function (err, docs) {
                 if (err){
                     console.log(err)
