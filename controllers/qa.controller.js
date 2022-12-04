@@ -175,14 +175,19 @@ module.exports.processDeleteQA = async (req, res, next) => {
         }else{
             let curQuestionAnswerArray = curAdvertisement.questionAnswer;
             let isFound = false;
-
-            // Delete/Filter-out the QA item for the qaid   
-            newQustionAnswerArray = curQuestionAnswerArray.filter(e => {
-                if(e._id == qaID){
+            
+            for (let i = 0;i < curQuestionAnswerArray.length; i++){
+                let cur = curQuestionAnswerArray[i];
+                if (cur._id == qaID){
+                    // remove the ith QA item
+                    curQuestionAnswerArray.splice(i,1);
+                    // assign to newQuestionAnswerArray
+                    newQustionAnswerArray = curQuestionAnswerArray;
+                    // console.log("newQustionAnswerArray: " ,newQustionAnswerArray);
                     isFound = true;
+                    break;
                 }
-                e._id != qaID;
-            });
+            }
             
             if(isFound == false){
                 throw new Error('Q&A item not found.'); 
