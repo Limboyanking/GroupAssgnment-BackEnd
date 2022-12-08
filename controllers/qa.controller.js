@@ -64,8 +64,13 @@ module.exports.processAddQuestion = async (req, res, next) => {
                     );
                 }
                 else{
-                    console.log("Added Advertisement:Question : ", docs);
-                    return res.status(200).json(docs); 
+                    // console.log("Added Advertisement:Question : ", docs);
+                    return res.status(200).json(
+                        {
+                            success: true,
+                            message: 'Advertisement/Question added successfully.'
+                        }
+                    );
                 }
             }
         );
