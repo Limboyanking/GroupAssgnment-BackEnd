@@ -27,7 +27,7 @@ module.exports.processAddQuestion = async (req, res, next) => {
         var curAdvertisement = await advertisementModel.findById(advertisementID);
         if (curAdvertisement == null){
             throw new Error('Advertisement not found.') // Express will catch this on its own.
-        }else if(curAdvertisement.questionAnswer == null || curAdvertisement.questionAnswer == []){
+        }else if(curAdvertisement.questionAnswer == null){
             throw new Error('questionAnswer Array not found.'); 
         }else{
             // Push the new qa to the start 
