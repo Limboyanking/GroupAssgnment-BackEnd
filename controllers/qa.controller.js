@@ -30,14 +30,17 @@ module.exports.processAddQuestion = async (req, res, next) => {
         }else if(curAdvertisement.questionAnswer == null){
             throw new Error('questionAnswer Array not found.'); 
         }else{
+            let curQuestionAnswerArray = curAdvertisement.questionAnswer;
             // Push the new qa to the start 
-            newQuestionAnswerArray.unshift(
+            curQuestionAnswerArray.unshift(
                 {
                     question:curQuestion,
                     // By default, the new QA only got empty string
                     answer: ""
                 }
             );
+            //assign to the newQuestionAnswerArray
+            newQuestionAnswerArray = curQuestionAnswerArray;
             // console.log(newQuestionAnswerArray);
         }
         
