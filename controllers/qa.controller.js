@@ -28,21 +28,12 @@ module.exports.processAddQuestion = async (req, res, next) => {
         if (curAdvertisement == null){
             throw new Error('Advertisement not found.') // Express will catch this on its own.
         }else if(curAdvertisement.questionAnswer == null || curAdvertisement.questionAnswer == []){
+            throw new Error('questionAnswer Array not found.'); 
+        }else{
             // Push the new qa to the end 
             newQuestionAnswerArray.unshift(
                 {
                     question:curQuestion,
-                    // By default, the new QA only got empty string
-                    answer: ""
-                }
-            );
-            // console.log(newQuestionAnswerArray);
-        }else{
-            newQuestionAnswerArray = curAdvertisement.questionAnswer;
-            // Push the new qa to the end 
-            newQuestionAnswerArray.push(
-                {
-                    question:req.body.question,
                     // By default, the new QA only got empty string
                     answer: ""
                 }
