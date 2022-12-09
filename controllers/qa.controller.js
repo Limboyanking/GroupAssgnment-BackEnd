@@ -30,7 +30,7 @@ module.exports.processAddQuestion = async (req, res, next) => {
         }else if(curAdvertisement.questionAnswer == null || curAdvertisement.questionAnswer == []){
             throw new Error('questionAnswer Array not found.'); 
         }else{
-            // Push the new qa to the end 
+            // Push the new qa to the start 
             newQuestionAnswerArray.unshift(
                 {
                     question:curQuestion,
