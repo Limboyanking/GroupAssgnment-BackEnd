@@ -139,10 +139,18 @@ module.exports.processEdit = async (req,res,next) => {
                 original.price : req.body.price,
             sold: (req.body.sold == null || req.body.sold == "")? 
                 original.sold : 
-                (req.body.sold == false ? req.body.sold : true),
+                (req.body.sold == false || req.body.sold == "false" 
+                ? false : 
+                    (req.body.sold == true || req.body.sold == "true") ?
+                    true :
+                    original.sold),
             enable: (req.body.enable == null || req.body.enable == "")? 
-                original.enable: 
-                (req.body.enable == false ? req.body.enable : true),
+                original.enable : 
+                (req.body.enable == false || req.body.enable == "false" 
+                ? false : 
+                    (req.body.enable == true || req.body.enable == "true") ?
+                    true :
+                    original.enable),
             deliveryMethod: (req.body.deliveryMethod == null || req.body.deliveryMethod == "")? 
                 original.deliveryMethod : req.body.deliveryMethod,
             creationDate: (req.body.creationDate == null || req.body.creationDate == "")? 
