@@ -125,6 +125,7 @@ module.exports.processEdit = async (req,res,next) => {
         !!!!
         All false , 0 , empty strings '' and "" , NaN , 
         undefined , and null are always evaluated as false ; everything else is true
+        === equal value and equal type
         */
         // console.log((req.body.enable == "")); console.log((req.body.enable == null));
 
@@ -143,14 +144,14 @@ module.exports.processEdit = async (req,res,next) => {
                 original.imageURL : req.body.imageURL,
             price: (req.body.price == null || req.body.price == "")? 
                 original.price : req.body.price,
-            sold: ((req.body.sold == false || req.body.sold == 'false')?
+            sold: ((req.body.sold === false || req.body.sold === 'false')?
                   false : 
-                  (req.body.sold == true || req.body.sold == 'true') ?
+                  (req.body.sold === true || req.body.sold === 'true') ?
                   true :
                   original.sold),
-            enable: ((req.body.enable == false || req.body.enable == 'false')? 
+            enable: ((req.body.enable === false || req.body.enable === 'false')? 
                     false : 
-                    (req.body.enable == true || req.body.enable == 'true') ?
+                    (req.body.enable === true || req.body.enable === 'true') ?
                     true :
                     original.enable),
             deliveryMethod: (req.body.deliveryMethod == null || req.body.deliveryMethod == "")? 
