@@ -114,13 +114,19 @@ module.exports.processAdd = (req, res, next) => {
 module.exports.processEdit = async (req,res,next) => {
     try {
         let id = req.params.id;
-        
         // console.log(req.body);
-
+        
         let original = await Advertisement.findById(id);;
         if(original == null){
             throw new Error("Advertisement not found.");
         }
+
+        /*
+        !!!!
+        All false , 0 , empty strings '' and "" , NaN , 
+        undefined , and null are always evaluated as false ; everything else is true
+        */
+        // console.log((req.body.enable == "")); console.log((req.body.enable == null));
 
         /* By default, the sold and enable remains false when created*/
         let updatedAdvertisement = Advertisement({
@@ -137,18 +143,14 @@ module.exports.processEdit = async (req,res,next) => {
                 original.imageURL : req.body.imageURL,
             price: (req.body.price == null || req.body.price == "")? 
                 original.price : req.body.price,
-            sold: (req.body.sold == null || req.body.sold == "")? 
-                original.sold : 
-                (req.body.sold == false || req.body.sold == "false" 
-                ? false : 
-                    (req.body.sold == true || req.body.sold == "true") ?
-                    true :
-                    original.sold),
-            enable: (req.body.enable == null || req.body.enable == "")? 
-                original.enable : 
-                (req.body.enable == false || req.body.enable == "false" 
-                ? false : 
-                    (req.body.enable == true || req.body.enable == "true") ?
+            sold: ((req.body.sold == false || req.body.sold == 'false')?
+                  false : 
+                  (req.body.sold == true || req.body.sold == 'true') ?
+                  true :
+                  original.sold),
+            enable: ((req.body.enable == false || req.body.enable == 'false')? 
+                    false : 
+                    (req.body.enable == true || req.body.enable == 'true') ?
                     true :
                     original.enable),
             deliveryMethod: (req.body.deliveryMethod == null || req.body.deliveryMethod == "")? 
