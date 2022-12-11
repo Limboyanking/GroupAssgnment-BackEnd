@@ -24,6 +24,14 @@ module.exports.advertisementList = async function(req, res, next) {
             select: 'category title'
         });
 
+        /*
+        The res.locals is an object that contains the local variables for 
+        the response which are scoped to the request only and 
+        therefore just available for the views rendered during that 
+        request or response cycle.
+        */
+        // Set advertisementList into res.locals for next midware
+        res.locals.adList = advertisementList;
         res.status(200).json(advertisementList);
         
     } catch (error) {
@@ -34,6 +42,7 @@ module.exports.advertisementList = async function(req, res, next) {
             }
         );
     }
+    next();
 }
 
 
@@ -102,31 +111,52 @@ module.exports.processAdd = (req, res, next) => {
 
 
 // Upate advertisement
-module.exports.processEdit = (req,res,next) => {
+module.exports.processEdit = async (req,res,next) => {
     try {
         let id = req.params.id;
         
         // console.log(req.body);
 
+        let original = await Advertisement.findById(id);;
+        if(original == null){
+            throw new Error("Advertisement not found.");
+        }
+
         /* By default, the sold and enable remains false when created*/
         let updatedAdvertisement = Advertisement({
             _id: id,
-            category: req.body.category,
-            title: req.body.title,
-            description: req.body.description,
-            condition: req.body.condition,
-            imageURL: req.body.imageURL,
-            price: req.body.price,
-            sold: (req.body.sold == null || req.body.sold == "")? false : true,
-            enable: (req.body.enable == null || req.body.enable == "")? false : true,
-            deliveryMethod: req.body.deliveryMethod,
-            // creationDate: Date.now(),
-            publishedDate: req.body.publishedDate,
-            expiryDate: req.body.expiryDate,
-            userName: req.body.userName,
-            questionAnswer: req.body.questionAnswer,
+            category: (req.body.category == null || req.body.category == "")? 
+                original.category : req.body.category,
+            title: (req.body.title == null || req.body.title == "")? 
+                original.title : req.body.title,
+            description: (req.body.description == null || req.body.description == "")? 
+                original.description : req.body.description,
+            condition: (req.body.condition == null || req.body.condition == "")? 
+                original.condition : req.body.condition,
+            imageURL: (req.body.imageURL == null || req.body.imageURL == "")? 
+                original.imageURL : req.body.imageURL,
+            price: (req.body.price == null || req.body.price == "")? 
+                original.price : req.body.price,
+            sold: (req.body.sold == null || req.body.sold == "")? 
+                original.sold : req.body.sold,
+            enable: (req.body.enable == null || req.body.enable == "")? 
+                original.enable : req.body.enable,
+            deliveryMethod: (req.body.deliveryMethod == null || req.body.deliveryMethod == "")? 
+                original.deliveryMethod : req.body.deliveryMethod,
+            creationDate: (req.body.creationDate == null || req.body.creationDate == "")? 
+                original.creationDate : req.body.creationDate,
+            publishedDate: (req.body.publishedDate == null || req.body.publishedDate == "")? 
+                original.publishedDate : req.body.publishedDate,
+            expiryDate: (req.body.expiryDate == null || req.body.expiryDate == "")? 
+                original.expiryDate : req.body.expiryDate,
+            userName: (req.body.userName == null || req.body.userName == "")? 
+                original.userName : req.body.userName,
+            questionAnswer: (req.body.questionAnswer == null || req.body.questionAnswer == "")? 
+                original.questionAnswer : req.body.questionAnswer,
             // If it does not have an owner it assumes the ownership otherwise it assigns it.
-            owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner
+            // In case of admin handles Advertisement that belongs to no one
+            owner: (req.body.owner == null || req.body.owner == "")? 
+                req.payload.id : req.body.owner
         });
     
         Advertisement.updateOne({_id: id}, updatedAdvertisement, (err) => {
